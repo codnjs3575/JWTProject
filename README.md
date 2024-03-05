@@ -16,28 +16,29 @@ React Native와 Spring Boot를 활용하여 JWT를 통한 사용자 인증을 �
 
 ## 프로젝트 기간
 
-2024/03/05 ~
+2024/03/05 ~ 03/15
 
 ---
 
 ## 팀원 소개
 
 FrontEnd : 김채원
+<br>
 BackEnd : 정태현
 
 ---
 
 ## 기술 스택
 
-**FrameWork** : React Natvie / Spring Boot
-**언어** : Java, JavaScript
+**FrameWork** : React Natvie (expo) 50.0.8 / Spring Boot 3.2.3
+**언어** : Java17, JDK17, JavaScript
 
 ---
 
 ## 개발 환경
 
 **OS** : MacOS Sonoma 14.0 Apple M1, Window 11
-**IDE** : VSCode , IntelliJ, Eclipse
+**IDE** : VSCode , IntelliJ
 
 ---
 
