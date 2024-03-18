@@ -1,0 +1,85 @@
+import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
+
+import { StyleSheet, View, Alert } from 'react-native'
+import FlatButton from '../ui/FlatButton'
+import { Colors } from '../../constants/styles'
+import AuthForm from './AuthForm'
+
+export default function AuthContent({ isLogin, onAuthenticate }) {
+  const navigation = useNavigation()
+
+  // 크리덴셜 로그인
+  const [credentialsInvalid, setCredentialsInvalid] = useState({
+    email: false,
+    password: false,
+    confirmEmail: false,
+    confirmPassword: false,
+  })
+
+  function switchAuthModeHandler() {
+    if (isLogin) navigation.replace('Signup')
+    else navigation.replace('Login')
+  }
+
+  function submitHandler(credentials) {
+    let { email, confirmEmail, password, confirmPassword } = credentials
+
+    email = email.trim()
+    password = password.trim()
+
+    const emailIsValid = email.includes('@')
+    const passwordIsValid = password.length > 6
+    const emailsAreEqual = email === confirmEmail
+    const passwordsAreEqual = password === confirmPassword
+
+    if (
+      !emailIsValid ||
+      !passwordIsValid ||
+      (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
+    ) {
+      Alert.alert('Invalid input', 'Please check your entered credentials.')
+      setCredentialsInvalid({
+        email: !emailIsValid,
+        confirmEmail: !emailIsValid || !emailsAreEqual,
+        password: !passwordIsValid,
+        confirmPassword: !passwordIsValid || !passwordsAreEqual,
+      })
+      return
+    }
+    onAuthenticate({ email, password })
+  }
+
+  return (
+    <View style={styles.authContent}>
+      <AuthForm
+        isLogin={isLogin}
+        onSubmit={submitHandler}
+        credentialsInvalid={credentialsInvalid}
+      />
+      <View style={styles.buttons}>
+        <FlatButton onPress={switchAuthModeHandler}>
+          {isLogin ? '회원가입하기' : '로그인하기'}
+        </FlatButton>
+      </View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  authContent: {
+    marginTop: 64,
+    marginHorizontal: 32,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: Colors.primary800,
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.35,
+    shadowRadius: 4,
+  },
+  buttons: {
+    marginTop: 8,
+  },
+})

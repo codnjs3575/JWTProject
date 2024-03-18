@@ -32,6 +32,10 @@ BackEnd : 정태현
 
 **FrameWork** : React Natvie (expo) 50.0.8 / Spring Boot 3.2.3
 **언어** : Java17, JDK17, JavaScript
+**packages**
+
+- react-navigation/native (dependencies : react-native-safe-area-context, react-native-screens)
+- react-navigation/native-stack
 
 ---
 
