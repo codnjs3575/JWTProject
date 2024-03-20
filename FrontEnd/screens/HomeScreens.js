@@ -1,25 +1,44 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { useContext, useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { AuthContext } from '../store/auth-context'
+import axios from 'axios'
+
 export default function HomeScreen() {
+  const [fetchedMessage, setFetchedMessage] = useState('')
+
+  const authCtx = useContext(AuthContext)
+  const token = authCtx.token
+
+  useEffect(() => {
+    axios
+      .get(
+        'https://react-native-project-d229d-default-rtdb.firebaseio.com/message.json?auth=' +
+          token
+      )
+      .then((response) => {
+        setFetchedMessage(response.data)
+      })
+  }, [token])
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>JWTProject</Text>
+    <View style={styles.rootContainer}>
+      <Text style={styles.title}>JWTProject</Text>
+      <Text>사용자 인증이 성공되었습니다!</Text>
+      <Text>{fetchedMessage}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
   },
-  text: {
-    color: 'white',
+  title: {
+    fontSize: 20,
     fontWeight: 'bold',
-    fontSize: 25,
-  },
-  pressed: {
-    opacity: 0.3,
+    marginBottom: 8,
   },
 })
