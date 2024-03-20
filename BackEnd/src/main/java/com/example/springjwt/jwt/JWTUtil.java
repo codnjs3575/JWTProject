@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
-    private  secretKey;
+    private SecretKey secretKey;
 
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
 
